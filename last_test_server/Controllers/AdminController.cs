@@ -18,7 +18,6 @@ namespace last_test_server.Controllers
             _roleManager = roleManager;
         }
 
-        // Список всех пользователей
         public async Task<IActionResult> Users()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -40,7 +39,6 @@ namespace last_test_server.Controllers
             return View(usersWithRoles);
         }
 
-        // Страница редактирования ролей (GET)
         [HttpGet]
         public async Task<IActionResult> EditRoles(string id)
         {
@@ -65,7 +63,6 @@ namespace last_test_server.Controllers
             return View(model);
         }
 
-        // Сохранение ролей (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditRoles(EditUserRoleViewModel model)
@@ -80,10 +77,8 @@ namespace last_test_server.Controllers
 
             var currentRoles = await _userManager.GetRolesAsync(user);
 
-            // Удаляем все текущие роли
             await _userManager.RemoveFromRolesAsync(user, currentRoles);
 
-            // Добавляем выбранные роли
             if (selectedRoles.Any())
             {
                 await _userManager.AddToRolesAsync(user, selectedRoles);
