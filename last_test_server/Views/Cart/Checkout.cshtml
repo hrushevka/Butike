@@ -19,22 +19,6 @@
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                         <div class="mb-3">
-                            <label asp-for="UserName" class="form-label fw-bold"></label>
-                            <input asp-for="UserName" class="form-control" readonly disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Email" class="form-label fw-bold"></label>
-                            <input asp-for="Email" class="form-control" readonly disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="PhoneNumber" class="form-label fw-bold"></label>
-                            <input asp-for="PhoneNumber" class="form-control" placeholder="+7 (999) 123-45-67">
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
                             <label asp-for="Address" class="form-label fw-bold"></label>
                             <textarea asp-for="Address" class="form-control" rows="3"
                                       placeholder="Город, улица, дом, квартира"></textarea>

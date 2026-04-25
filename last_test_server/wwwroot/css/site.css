@@ -12,6 +12,8 @@ html {
 
 body {
     margin-bottom: 60px;
+    background-color: #FBF7F0; /* Тёплый бежевый, как мякиш */
+    color: #3E2723; /* Тёмно-коричневый для текста */
 }
 
 .footer {
@@ -20,39 +22,113 @@ body {
     width: 100%;
     white-space: nowrap;
     line-height: 60px;
+    background-color: #D7CCC8; /* Светло-коричневый, как корочка */
+    color: #4E342E;
+    border-top: 1px solid #BCAAA4;
 }
 
-/* Card styles */
+/* Card styles - румяная корочка */
 .card {
     border-radius: 10px;
     transition: transform 0.2s;
+    background-color: #FFF8F0;
+    border: 1px solid #E2D4C8;
+    box-shadow: 0 2px 8px rgba(94, 57, 39, 0.08);
 }
 
     .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 20px rgba(94, 57, 39, 0.15);
+        border-color: #D1BBA3;
     }
 
-/* Badge styles */
+.card-header {
+    background-color: #EFE3D4;
+    border-bottom: 1px solid #DECBB8;
+    color: #4E2E24;
+    font-weight: 600;
+}
+
+/* Badge styles - как хрустящая корочка */
 .badge {
     font-size: 0.85rem;
     padding: 0.35rem 0.65rem;
     margin-right: 0.25rem;
 }
 
+.badge-primary {
+    background-color: #A67B5B;
+    color: #FFF8F0;
+}
+
+.badge-secondary {
+    background-color: #BC9A7A;
+    color: #2D1E16;
+}
+
+.badge-success {
+    background-color: #7D5D42;
+    color: #FEF3E4;
+}
+
 /* Table styles */
 .table th {
     font-weight: 600;
+    background-color: #EFE3D4;
+    color: #3E2723;
+    border-bottom: 2px solid #DECBB8;
+}
+
+.table td {
+    border-top-color: #F0E4D6;
+    color: #4E342E;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #FAF0E4;
 }
 
 /* Form styles */
-.form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.15);
+.form-control {
+    background-color: #FFFDF9;
+    border: 1px solid #DBC9B4;
+    color: #3E2723;
 }
 
-/* Alert animations */
+    .form-control:focus {
+        border-color: #B88D68;
+        box-shadow: 0 0 0 0.25rem rgba(139, 90, 43, 0.15);
+        background-color: #FFFFFF;
+    }
+
+.form-label {
+    color: #5D4037;
+    font-weight: 500;
+}
+
+/* Alert animations - мёд и сливки */
 .alert {
     animation: slideIn 0.5s;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.alert-warning {
+    background-color: #FFF2E0;
+    border-color: #E6C39B;
+    color: #8B5E3C;
+}
+
+.alert-success {
+    background-color: #EDE0D4;
+    border-color: #CAB69E;
+    color: #4E3B2C;
+}
+
+.alert-danger {
+    background-color: #F8E6E0;
+    border-color: #E0BCAC;
+    color: #9B4B3A;
 }
 
 @keyframes slideIn {
@@ -67,13 +143,81 @@ body {
     }
 }
 
-/* Dashboard cards */
+/* Dashboard cards - зерновые акценты */
 .dashboard-card {
     border-left: 4px solid;
     transition: all 0.3s;
+    background: linear-gradient(135deg, #FFF9F0 0%, #FEEDD5 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #EBD7C4;
 }
 
     .dashboard-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 20px rgba(90, 55, 35, 0.12);
+        background: #FFF7EA;
     }
+
+/* Кнопки в стиле "хлеб" */
+.btn-primary {
+    background-color: #A47148;
+    border-color: #8C5E3C;
+    color: #FEF7E8;
+}
+
+    .btn-primary:hover {
+        background-color: #8C5E3C;
+        border-color: #6E482E;
+    }
+
+.btn-outline-secondary {
+    border-color: #CBB295;
+    color: #6B4B35;
+}
+
+    .btn-outline-secondary:hover {
+        background-color: #EBDCCB;
+        border-color: #B49270;
+        color: #4E3322;
+    }
+
+/* Пагинация (хлебные крошки) */
+.pagination .page-link {
+    background-color: #FFFCF5;
+    border-color: #DECBB8;
+    color: #7B563B;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #A67B5B;
+    border-color: #8B623F;
+    color: white;
+}
+
+/* Навигация */
+.navbar {
+    background-color: #EEDCCB !important;
+    border-bottom: 1px solid #D1BCA6;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.navbar-brand, .nav-link {
+    color: #4B3621 !important;
+}
+
+    .nav-link:hover {
+        color: #7D4E2A !important;
+    }
+
+/* Модальные окна */
+.modal-content {
+    background-color: #FFFCF5;
+    border: 1px solid #E2CFBB;
+}
+
+.modal-header {
+    border-bottom-color: #E9D9CA;
+    background-color: #FCF5EA;
+    color: #5C3F2B;
+}
