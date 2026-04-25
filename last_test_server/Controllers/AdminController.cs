@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using last_test_server.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using last_test_server.Data;
 
 namespace last_test_server.Controllers
 {
@@ -11,11 +12,13 @@ namespace last_test_server.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Users()
@@ -37,6 +40,12 @@ namespace last_test_server.Controllers
             }
 
             return View(usersWithRoles);
+        }
+
+        public async Task<IActionResult> Orders()
+        {
+            var orders = await _context.Orders.ToListAsync();
+            return View(orders);
         }
 
         [HttpGet]

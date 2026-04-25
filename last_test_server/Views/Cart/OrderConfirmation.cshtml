@@ -4,94 +4,90 @@
     ViewData["Title"] = "Заказ оформлен";
 }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
-<div class="container mt-4">
-    <div class="text-center mb-5">
-        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
-        <h1 class="mt-3">Заказ успешно оформлен!</h1>
-        <p class="lead">Номер заказа: #@Model.Id</p>
+<div class="container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 5rem;">✅</div>
+        <h1 style="margin-top: 1rem;">Заказ успешно оформлен!</h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted);">Номер заказа: #@Model.Id</p>
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Детали заказа</h5>
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div class="card">
+            <div class="card-header" style="background: var(--brown-primary); color: white; padding: 1rem; border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+                <h5 style="margin: 0;">Детали заказа</h5>
+            </div>
+            <div class="card-body" style="padding: 1.5rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <strong>Дата заказа:</strong><br>
+                        @Model.OrderDate.ToString("dd.MM.yyyy HH:mm")
+                    </div>
+                    <div>
+                        <strong>Статус:</strong><br>
+                        @if (Model.Status == last_test_server.Models.OrderStatus.Pending)
+                        {
+                            <span class="badge" style="background: #ffc107; color: #333; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem;">Ожидает обработки</span>
+                        }
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Дата заказа:</strong><br>
-                            @Model.OrderDate.ToString("dd.MM.yyyy HH:mm")
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Статус:</strong><br>
-                            @if (Model.Status == last_test_server.Models.OrderStatus.Pending)
-                            {
-                                <span class="badge bg-warning">Ожидает обработки</span>
-                            }
-                        </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <strong>Телефон:</strong><br>
+                        @Model.PhoneNumber
                     </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <strong>Телефон:</strong><br>
-                            @Model.PhoneNumber
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Адрес доставки:</strong><br>
-                            @Model.ShippingAddress
-                        </div>
+                    <div>
+                        <strong>Адрес доставки:</strong><br>
+                        @Model.ShippingAddress
                     </div>
+                </div>
 
-                    <hr />
+                <hr style="border-color: var(--brown-light); margin: 1rem 0;">
 
-                    <h6>Состав заказа:</h6>
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th>Товар</th>
-                                <th>Кол-во</th>
-                                <th>Цена</th>
-                                <th>Сумма</th>
+                <h6 style="margin-bottom: 0.5rem;">Состав заказа:</h6>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 1rem;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--brown-light);">
+                            <th style="text-align: left; padding: 0.5rem;">Товар</th>
+                            <th style="text-align: center; padding: 0.5rem;">Кол-во</th>
+                            <th style="text-align: right; padding: 0.5rem;">Цена</th>
+                            <th style="text-align: right; padding: 0.5rem;">Сумма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr style="border-bottom: 1px solid var(--brown-light);">
+                                <td style="padding: 0.5rem;">@item.ProductName</td>
+                                <td style="text-align: center; padding: 0.5rem;">@item.Quantity</td>
+                                <td style="text-align: right; padding: 0.5rem;">@item.PriceAtTime ₽</td>
+                                <td style="text-align: right; padding: 0.5rem;">@(item.PriceAtTime * item.Quantity) ₽</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.OrderItems)
-                            {
-                                <tr>
-                                    <td>@item.ProductName</td>
-                                    <td>@item.Quantity</td>
-                                    <td>@item.PriceAtTime ₽</td>
-                                    <td>@(item.PriceAtTime* item.Quantity) ₽</td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="3" class="text-end">Итого:</th>
-                                <th>@Model.TotalAmount ₽</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr style="border-top: 2px solid var(--brown-light);">
+                            <th colspan="3" style="text-align: right; padding: 0.5rem;">Итого:</th>
+                            <th style="text-align: right; padding: 0.5rem;">@Model.TotalAmount ₽</th>
+                        </tr>
+                    </tfoot>
+                </table>
 
-                    @if (!string.IsNullOrEmpty(Model.Comment))
-                    {
-                        <div class="alert alert-info">
-                            <strong>Комментарий к заказу:</strong><br>
-                            @Model.Comment
-                        </div>
-                    }
-
-                    <div class="text-center mt-4">
-                        <a href="/Home/Index" class="btn btn-primary">
-                            <i class="bi bi-shop"></i> Продолжить покупки
-                        </a>
-                        <a asp-action="OrderHistory" class="btn btn-outline-info">
-                            <i class="bi bi-clock-history"></i> История заказов
-                        </a>
+                @if (!string.IsNullOrEmpty(Model.Comment))
+                {
+                    <div style="background: var(--brown-light); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1rem;">
+                        <strong>Комментарий к заказу:</strong><br>
+                        @Model.Comment
                     </div>
+                }
+
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem;">
+                    <a href="/Home/Index" class="btn btn-primary" style="text-decoration: none;">
+                        🏪 Продолжить покупки
+                    </a>
+                    <a asp-action="OrderHistory" class="btn btn-outline" style="text-decoration: none;">
+                        📋 История заказов
+                    </a>
                 </div>
             </div>
         </div>

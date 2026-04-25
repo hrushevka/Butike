@@ -1,14 +1,22 @@
-﻿@{
-    ViewData["Title"] = "Доступ запрещен";
+﻿﻿@{
+ViewData["Title"] = "Доступ запрещен";
 }
 
-<div class="text-center">
-    <div class="display-1 text-danger">
-        <i class="bi bi-shield-exclamation"></i>
+<div class="container">
+    <div style="text-align: center; max-width: 600px; margin: 2rem auto;">
+        <div class="card">
+            <div class="card-header" style="background: #dc3545; color: white; padding: 1rem;">
+                <div style="font-size: 3rem;">⛔</div>
+            </div>
+            <div class="card-body" style="padding: 2rem;">
+                <h1 style="font-size: 2rem; margin-bottom: 1rem;">Доступ запрещен</h1>
+                <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    У вас нет прав для доступа к этой странице.
+                </p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary" style="text-decoration: none; display: inline-block;">
+                    🏠 На главную
+                </a>
+            </div>
+        </div>
     </div>
-    <h1 class="display-4">Доступ запрещен</h1>
-    <p class="lead">У вас нет прав для доступа к этой странице.</p>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
-        <i class="bi bi-house"></i> На главную
-    </a>
 </div>

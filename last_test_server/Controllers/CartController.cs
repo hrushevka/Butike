@@ -209,7 +209,6 @@ namespace last_test_server.Controllers
 
             if (ModelState.IsValid)
             {
-                // Создаем заказ
                 var order = new Order
                 {
                     UserId = user.Id,
@@ -224,7 +223,6 @@ namespace last_test_server.Controllers
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync();
 
-                // Добавляем элементы заказа
                 foreach (var item in cartItems)
                 {
                     var orderItem = new OrderItem

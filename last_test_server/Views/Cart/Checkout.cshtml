@@ -4,61 +4,59 @@
     ViewData["Title"] = "Оформление заказа";
 }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
-<div class="container mt-4">
-    <h1 class="mb-4">
-        <i class="bi bi-credit-card"></i> Оформление заказа
+<div class="container">
+    <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
+        💳 Оформление заказа
     </h1>
 
-    <div class="row">
-        <div class="col-md-7">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <form asp-action="Checkout" method="post">
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+    <div style="display: grid; grid-template-columns: 1fr 0.8fr; gap: 1.5rem;">
+        <div class="card">
+            <div class="card-body" style="padding: 1.5rem;">
+                <form asp-action="Checkout" method="post">
+                    <div asp-validation-summary="ModelOnly" class="empty-state" style="padding: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem;"></div>
 
-                        <div class="mb-3">
-                            <label asp-for="Address" class="form-label fw-bold"></label>
-                            <textarea asp-for="Address" class="form-control" rows="3"
-                                      placeholder="Город, улица, дом, квартира"></textarea>
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                        </div>
+                    <input type="hidden" asp-for="@Model.PhoneNumber" />
+                    <input type="hidden" asp-for="@Model.UserName" />
+                    <input type="hidden" asp-for="@Model.Email" />
 
-                        <div class="mb-3">
-                            <label asp-for="Comment" class="form-label fw-bold"></label>
-                            <textarea asp-for="Comment" class="form-control" rows="3"
-                                      placeholder="Пожелания к заказу..."></textarea>
-                        </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label asp-for="Address" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--brown-dark);">Адрес доставки</label>
+                        <textarea asp-for="Address" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--brown-light); border-radius: var(--radius-sm); font-family: inherit;"
+                                  placeholder="Город, улица, дом, квартира"></textarea>
+                        <span asp-validation-for="Address" style="color: #dc3545; font-size: 0.875rem;"></span>
+                    </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a asp-action="Index" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left"></i> Назад в корзину
-                            </a>
-                            <button type="submit" class="btn btn-success">
-                                <i class="bi bi-check-lg"></i> Подтвердить заказ
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label asp-for="Comment" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--brown-dark);">Комментарий к заказу</label>
+                        <textarea asp-for="Comment" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid var(--brown-light); border-radius: var(--radius-sm); font-family: inherit;"
+                                  placeholder="Пожелания к заказу..."></textarea>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                        <a asp-action="Index" class="btn btn-outline" style="text-decoration: none; text-align: center;">
+                            ← Назад в корзину
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            ✓ Подтвердить заказ
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <div class="col-md-5">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Детали заказа</h5>
+        <div class="card">
+            <div class="card-header" style="background: var(--brown-primary); color: white; padding: 1rem; border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+                <h5 style="margin: 0;">Детали заказа</h5>
+            </div>
+            <div class="card-body" style="padding: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <span>Сумма заказа:</span>
+                    <strong style="font-size: 1.1rem;">@Model.TotalPrice ₽</strong>
                 </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3">
-                        <span>Сумма заказа:</span>
-                        <strong class="h5">@Model.TotalPrice ₽</strong>
-                    </div>
-                    <hr />
-                    <div class="d-flex justify-content-between">
-                        <span>К оплате:</span>
-                        <strong class="h4 text-success">@Model.TotalPrice ₽</strong>
-                    </div>
+                <hr style="border-color: var(--brown-light); margin: 1rem 0;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>К оплате:</span>
+                    <strong style="font-size: 1.3rem; color: var(--brown-primary);">@Model.TotalPrice ₽</strong>
                 </div>
             </div>
         </div>

@@ -3,73 +3,79 @@
     ViewData["Title"] = "Регистрация";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Регистрация нового пользователя</h4>
+<div class="container">
+    <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
+        Регистрация
+    </h1>
+
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div class="card">
+            <div class="card-header" style="background: var(--brown-primary); color: white; padding: 1rem;">
+                <h4 style="margin: 0;">Создание нового аккаунта</h4>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="padding: 1.5rem;">
                 <form method="post" asp-action="Register">
-                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <div asp-validation-summary="ModelOnly" class="empty-state" style="padding: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem;"></div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="FirstName" class="form-label">Имя</label>
-                            <input asp-for="FirstName" class="form-control" />
-                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label asp-for="FirstName" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Имя</label>
+                            <input asp-for="FirstName" class="quantity-input" style="width: 100%; padding: 0.6rem;" />
+                            <span asp-validation-for="FirstName" style="color: #dc3545; font-size: 0.8rem;"></span>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="LastName" class="form-label">Фамилия</label>
-                            <input asp-for="LastName" class="form-control" />
-                            <span asp-validation-for="LastName" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="Email" class="form-label">Email</label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="PhoneNumber" class="form-label">Телефон</label>
-                        <input asp-for="PhoneNumber" class="form-control" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="City" class="form-label">Город</label>
-                        <input asp-for="City" class="form-control" />
-                        <span asp-validation-for="City" class="text-danger"></span>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="Password" class="form-label">Пароль</label>
-                            <input asp-for="Password" type="password" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="ConfirmPassword" class="form-label">Подтверждение</label>
-                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        <div>
+                            <label asp-for="LastName" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Фамилия</label>
+                            <input asp-for="LastName" class="quantity-input" style="width: 100%; padding: 0.6rem;" />
+                            <span asp-validation-for="LastName" style="color: #dc3545; font-size: 0.8rem;"></span>
                         </div>
                     </div>
 
-                    <div class="mb-3 form-check">
-                        <input asp-for="TermsAccepted" class="form-check-input" />
-                        <label asp-for="TermsAccepted" class="form-check-label">
+                    <div style="margin-bottom: 1rem;">
+                        <label asp-for="Email" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Email</label>
+                        <input asp-for="Email" class="quantity-input" style="width: 100%; padding: 0.6rem;" />
+                        <span asp-validation-for="Email" style="color: #dc3545; font-size: 0.8rem;"></span>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label asp-for="PhoneNumber" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Телефон</label>
+                        <input asp-for="PhoneNumber" class="quantity-input" style="width: 100%; padding: 0.6rem;" />
+                        <span asp-validation-for="PhoneNumber" style="color: #dc3545; font-size: 0.8rem;"></span>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label asp-for="City" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Город</label>
+                        <input asp-for="City" class="quantity-input" style="width: 100%; padding: 0.6rem;" />
+                        <span asp-validation-for="City" style="color: #dc3545; font-size: 0.8rem;"></span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label asp-for="Password" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Пароль</label>
+                            <input asp-for="Password" type="password" class="quantity-input" style="width: 100%; padding: 0.6rem;" />
+                            <span asp-validation-for="Password" style="color: #dc3545; font-size: 0.8rem;"></span>
+                        </div>
+                        <div>
+                            <label asp-for="ConfirmPassword" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Подтверждение</label>
+                            <input asp-for="ConfirmPassword" type="password" class="quantity-input" style="width: 100%; padding: 0.6rem;" />
+                            <span asp-validation-for="ConfirmPassword" style="color: #dc3545; font-size: 0.8rem;"></span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <input asp-for="TermsAccepted" style="width: 18px; height: 18px;" />
+                        <label asp-for="TermsAccepted" style="margin: 0;">
                             Я принимаю условия использования
                         </label>
-                        <span asp-validation-for="TermsAccepted" class="text-danger"></span>
+                        <span asp-validation-for="TermsAccepted" style="color: #dc3545; font-size: 0.8rem;"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        Зарегистрироваться
+                    </button>
                 </form>
             </div>
-            <div class="card-footer text-center">
-                <a asp-action="Login">Уже есть аккаунт? Войти</a>
+            <div class="card-footer" style="background: var(--cream-dark); padding: 1rem; text-align: center; border-top: 1px solid var(--brown-light);">
+                <a asp-action="Login" style="color: var(--brown-primary); text-decoration: none;">Уже есть аккаунт? Войти</a>
             </div>
         </div>
     </div>
