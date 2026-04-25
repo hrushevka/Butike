@@ -4,53 +4,49 @@
     ViewData["Title"] = "Удаление товара";
 }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: #dc3545; margin-bottom: 1.5rem;">
+            ⚠️ Подтверждение удаления
+        </h1>
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-danger text-white">
-                    <h3 class="mb-0">
-                        <i class="bi bi-exclamation-triangle"></i> Подтверждение удаления
-                    </h3>
+        <div class="card">
+            <div class="card-header" style="background: #dc3545; color: white;">
+                <h3 style="margin: 0;">Удаление товара</h3>
+            </div>
+            <div class="card-body" style="padding: 1.5rem;">
+                <div class="empty-state" style="background: #fff3cd; color: #856404; padding: 1rem; margin-bottom: 1.5rem;">
+                    ⚠ Внимание! Вы уверены, что хотите удалить этот товар? Это действие нельзя отменить.
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-warning">
-                        <i class="bi bi-info-circle"></i> Вы уверены, что хотите удалить этот товар? Это действие нельзя отменить.
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-5">
-                            <img src="@Model.ImageURL" class="img-fluid rounded" alt="@Model.Name"
-                                 onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
-                        </div>
-                        <div class="col-md-7">
-                            <h4>@Model.Name</h4>
-                            <p class="text-primary fw-bold fs-4">@Model.Cost.ToString("N0") ₽</p>
-                            @if (!string.IsNullOrEmpty(Model.Composition))
-                            {
-                                <h6>Состав:</h6>
-                                <p class="text-muted">@Model.Composition</p>
-                            }
-                            <p class="text-muted">
-                                <small>ID товара: #@Model.Id</small>
-                            </p>
-                        </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div>
+                        <img src="@Model.ImageURL" class="product-img" alt="@Model.Name" style="width: 100%; border-radius: var(--radius-sm);"
+                             onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
                     </div>
-
-                    <form asp-action="Delete" method="post" class="mt-4">
-                        <input type="hidden" asp-for="Id" />
-                        <div class="d-flex justify-content-between">
-                            <a asp-action="Index" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left"></i> Отмена
-                            </a>
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i> Удалить навсегда
-                            </button>
-                        </div>
-                    </form>
+                    <div>
+                        <h3 style="color: var(--brown-dark);">@Model.Name</h3>
+                        <p style="font-size: 1.5rem; font-weight: 700; color: var(--brown-primary);">@Model.Cost.ToString("N0") ₽</p>
+                        @if (!string.IsNullOrEmpty(Model.Composition))
+                        {
+                            <h6 style="margin-top: 1rem;">Состав:</h6>
+                            <p style="color: var(--text-muted);">@Model.Composition</p>
+                        }
+                        <p style="color: var(--text-light); font-size: 0.8rem;">ID товара: #@Model.Id</p>
+                    </div>
                 </div>
+
+                <form asp-action="Delete" method="post" style="margin-top: 1.5rem;">
+                    <input type="hidden" asp-for="Id" />
+                    <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                        <a asp-action="Index" class="btn btn-outline" style="text-decoration: none; text-align: center;">
+                            ↩️ Отмена
+                        </a>
+                        <button type="submit" class="btn" style="background: #dc3545; color: white; border: none; padding: 0.7rem 1.8rem; border-radius: var(--radius-sm); cursor: pointer;">
+                            🗑️ Удалить навсегда
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

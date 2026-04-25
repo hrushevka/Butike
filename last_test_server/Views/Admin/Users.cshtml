@@ -3,36 +3,142 @@
     ViewData["Title"] = "Пользователи";
 }
 
-<h2>Управление пользователями</h2>
+<div class="container">
+    <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
+        👥 Управление пользователями
+    </h1>
 
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Роли</th>
-            <th>Действия</th>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.Email</td>
-                <td>@user.FirstName</td>
-                <td>@user.LastName</td>
-                <td>
-                    @foreach (var role in user.Roles)
+    <div class="card" style="overflow-x: auto;">
+        <div class="card-body" style="padding: 1.5rem;">
+            <table class="admin-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: var(--brown-primary); color: white; border-radius: var(--radius-sm);">
+                        <th style="padding: 0.75rem; text-align: left;">Email</th>
+                        <th style="padding: 0.75rem; text-align: left;">Имя</th>
+                        <th style="padding: 0.75rem; text-align: left;">Фамилия</th>
+                        <th style="padding: 0.75rem; text-align: left;">Роли</th>
+                        <th style="padding: 0.75rem; text-align: center;">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
                     {
-                        <span class="badge bg-primary">@role</span>
+                        <tr style="border-bottom: 1px solid var(--brown-light);">
+                            <td style="padding: 0.75rem;">@user.Email</td>
+                            <td style="padding: 0.75rem;">@user.FirstName</td>
+                            <td style="padding: 0.75rem;">@user.LastName</td>
+                            <td style="padding: 0.75rem;">
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">
+                                    @foreach (var role in user.Roles)
+                                    {
+                                        <span class="role-badge">@role</span>
+                                    }
+                                </div>
+                            </td>
+                            <td style="padding: 0.75rem; text-align: center;">
+                                <a asp-action="EditRoles" asp-route-id="@user.UserId" class="btn-edit" style="text-decoration: none;">
+                                    ✏️ Редактировать
+                                </a>
+                            </td>
+                        </tr>
                     }
-                </td>
-                <td>
-                    <a asp-action="EditRoles" asp-route-id="@user.UserId" class="btn btn-warning btn-sm">
-                        Редактировать роли
-                    </a>
-                </td>
-            </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .admin-table th {
+        background: var(--brown-primary);
+        color: white;
+        padding: 0.75rem;
+        text-align: left;
+    }
+    
+    .admin-table td {
+        padding: 0.75rem;
+        border-bottom: 1px solid var(--brown-light);
+    }
+    
+    .admin-table tr:hover {
+        background: var(--brown-bg-light);
+    }
+    
+    .role-badge {
+        display: inline-block;
+        background: var(--brown-light);
+        color: var(--brown-dark);
+        padding: 0.2rem 0.6rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .btn-edit {
+        background: var(--brown-primary);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        transition: var(--transition);
+        display: inline-block;
+    }
+    
+    .btn-edit:hover {
+        background: var(--brown-hover);
+        transform: translateY(-1px);
+    }
+    
+    @@media (max-width: 768px) {
+        .admin-table th,
+        .admin-table td {
+            padding: 0.5rem;
+            font-size: 0.8rem;
         }
-    </tbody>
-</table>
+        
+        .btn-edit {
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+        }
+        
+        .admin-table,
+        .admin-table thead,
+        .admin-table tbody,
+        .admin-table tr,
+        .admin-table th,
+        .admin-table td {
+            display: block;
+        }
+        
+        .admin-table thead {
+            display: none;
+        }
+        
+        .admin-table tr {
+            margin-bottom: 1rem;
+            border: 1px solid var(--brown-light);
+            border-radius: var(--radius-sm);
+            padding: 0.5rem;
+        }
+        
+        .admin-table td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: none;
+        }
+        
+        .admin-table td::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: var(--brown-dark);
+        }
+    }
+</style>

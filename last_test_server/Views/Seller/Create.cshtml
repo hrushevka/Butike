@@ -4,64 +4,83 @@
     ViewData["Title"] = "Добавление товара";
 }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<div class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
+            ➕ Добавить новый товар
+        </h1>
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">
-                        <i class="bi bi-plus-circle"></i> Добавить новый товар
-                    </h3>
-                </div>
-                <div class="card-body">
-                    <form asp-action="Create" method="post">
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+        <div class="card">
+            <div class="card-header" style="background: var(--brown-primary); color: white;">
+                <h3 style="margin: 0;">Информация о товаре</h3>
+            </div>
+            <div class="card-body" style="padding: 1.5rem;">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="empty-state" style="padding: 0.75rem; margin-bottom: 1rem; font-size: 0.9rem;"></div>
 
-                        <div class="mb-3">
-                            <label asp-for="Name" class="form-label fw-bold"></label>
-                            <input asp-for="Name" class="form-control" placeholder="Введите название товара">
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                    <div style="margin-bottom: 1rem;">
+                        <label asp-for="Name" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--brown-dark);">Название товара</label>
+                        <input asp-for="Name" class="form-control" style="width: 100%; padding: 0.6rem; border: 1px solid var(--brown-light); border-radius: var(--radius-sm);" placeholder="Введите название товара">
+                        <span asp-validation-for="Name" style="color: #dc3545; font-size: 0.8rem;"></span>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label asp-for="ImageURL" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--brown-dark);">URL изображения</label>
+                        <input asp-for="ImageURL" class="form-control" id="ImageURL" style="width: 100%; padding: 0.6rem; border: 1px solid var(--brown-light); border-radius: var(--radius-sm);" placeholder="https://example.com/image.jpg">
+                        <span asp-validation-for="ImageURL" style="color: #dc3545; font-size: 0.8rem;"></span>
+                        <small style="color: var(--text-muted);">Введите URL ссылку на изображение товара</small>
+                        <div id="imagePreview" style="margin-top: 0.5rem; display: none;">
+                            <img src="" alt="Preview" style="max-height: 100px; border-radius: var(--radius-sm);">
                         </div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label asp-for="ImageURL" class="form-label fw-bold"></label>
-                            <input asp-for="ImageURL" class="form-control" placeholder="https://example.com/image.jpg">
-                            <span asp-validation-for="ImageURL" class="text-danger"></span>
-                            <small class="text-muted">Введите URL ссылку на изображение товара</small>
+                    <div style="margin-bottom: 1rem;">
+                        <label asp-for="Cost" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--brown-dark);">Цена</label>
+                        <div style="display: flex; align-items: center;">
+                            <input asp-for="Cost" type="number" min="0" step="1" style="flex: 1; padding: 0.6rem; border: 1px solid var(--brown-light); border-radius: var(--radius-sm) 0 0 var(--radius-sm);">
+                            <span style="background: var(--brown-light); padding: 0.6rem 1rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;">₽</span>
                         </div>
+                        <span asp-validation-for="Cost" style="color: #dc3545; font-size: 0.8rem;"></span>
+                    </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Cost" class="form-label fw-bold"></label>
-                            <div class="input-group">
-                                <input asp-for="Cost" class="form-control" type="number" min="0" step="1">
-                                <span class="input-group-text">₽</span>
-                            </div>
-                            <span asp-validation-for="Cost" class="text-danger"></span>
-                        </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label asp-for="Composition" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--brown-dark);">Состав и описание</label>
+                        <textarea asp-for="Composition" rows="4" style="width: 100%; padding: 0.6rem; border: 1px solid var(--brown-light); border-radius: var(--radius-sm); font-family: inherit;" placeholder="Опишите состав товара, материалы, характеристики..."></textarea>
+                        <span asp-validation-for="Composition" style="color: #dc3545; font-size: 0.8rem;"></span>
+                    </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Composition" class="form-label fw-bold"></label>
-                            <textarea asp-for="Composition" class="form-control" rows="4"
-                                      placeholder="Опишите состав товара, материалы, характеристики..."></textarea>
-                            <span asp-validation-for="Composition" class="text-danger"></span>
-                        </div>
-
-                        <div class="d-flex justify-content-between">
-                            <a asp-action="Index" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left"></i> Назад
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Добавить товар
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                        <a asp-action="Index" class="btn btn-outline" style="text-decoration: none; text-align: center;">
+                            ↩️ Назад
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            💾 Добавить товар
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // Live preview для изображения
+    const imageUrlInput = document.getElementById('ImageURL');
+    const previewDiv = document.getElementById('imagePreview');
+    const previewImg = previewDiv?.querySelector('img');
+    
+    if (imageUrlInput) {
+        imageUrlInput.addEventListener('input', function() {
+            const url = this.value;
+            if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                previewImg.src = url;
+                previewDiv.style.display = 'block';
+            } else {
+                previewDiv.style.display = 'none';
+            }
+        });
+    }
+</script>
 
 @section Scripts {
     @{

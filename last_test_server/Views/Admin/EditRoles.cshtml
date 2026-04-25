@@ -3,21 +3,60 @@
     ViewData["Title"] = "Редактирование ролей";
 }
 
-<h2>Редактирование ролей для @Model.FullName</h2>
-<p>Email: @Model.Email</p>
+<div class="container">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
+            👑 Редактирование ролей
+        </h1>
 
-<form method="post">
-    <input type="hidden" asp-for="UserId" />
+        <div class="card">
+            <div class="card-header" style="background: var(--brown-primary); color: white; padding: 1rem;">
+                <h5 style="margin: 0;">@Model.FullName</h5>
+            </div>
+            <div class="card-body" style="padding: 1.5rem;">
+                <p style="margin-bottom: 1rem; color: var(--text-muted);">
+                    📧 Email: <strong>@Model.Email</strong>
+                </p>
 
-    @for (int i = 0; i < Model.Roles.Count; i++)
-    {
-        <div class="form-check mb-2">
-            <input type="hidden" asp-for="@Model.Roles[i].RoleName" />
-            <input class="form-check-input" type="checkbox" asp-for="@Model.Roles[i].IsSelected" />
-            <label class="form-check-label">@Model.Roles[i].RoleName</label>
+                <form method="post">
+                    <input type="hidden" asp-for="UserId" />
+
+                    <div style="margin: 1.5rem 0;">
+                        <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: var(--brown-dark);">Роли пользователя:</label>
+                        
+                        @for (int i = 0; i < Model.Roles.Count; i++)
+                        {
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                <input type="hidden" asp-for="@Model.Roles[i].RoleName" />
+                                <input class="role-checkbox" type="checkbox" asp-for="@Model.Roles[i].IsSelected" style="width: 18px; height: 18px; cursor: pointer;" />
+                                <label style="cursor: pointer; color: var(--text-dark);">@Model.Roles[i].RoleName</label>
+                            </div>
+                        }
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <button type="submit" class="btn btn-primary" style="cursor: pointer;">
+                            💾 Сохранить
+                        </button>
+                        <a asp-action="Users" class="btn btn-outline" style="text-decoration: none; text-align: center;">
+                            ↩️ Назад
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
-    }
+    </div>
+</div>
 
-    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
-    <a asp-action="Users" class="btn btn-secondary mt-3">Назад</a>
-</form>
+<style>
+    .role-checkbox {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        accent-color: var(--brown-primary);
+    }
+    
+    .role-checkbox:hover {
+        transform: scale(1.05);
+    }
+</style>
