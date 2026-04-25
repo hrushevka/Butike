@@ -42,12 +42,6 @@
                         </li>
 
                     }
-                    @if (User.Identity?.IsAuthenticated == true)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Dashboard">Дашборд</a>
-                        </li>
-                    }
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">

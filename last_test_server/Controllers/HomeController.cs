@@ -42,11 +42,5 @@ namespace last_test_server.Controllers
 
             return View(products);
         }
-
-        [Authorize]
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
     }
 }

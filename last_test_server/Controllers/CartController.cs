@@ -217,7 +217,7 @@ namespace last_test_server.Controllers
                     TotalAmount = cartItems.Sum(c => c.Product!.Cost * c.Quantity),
                     Status = OrderStatus.Pending,
                     ShippingAddress = model.Address,
-                    PhoneNumber = model.PhoneNumber,
+                    PhoneNumber = user.PhoneNumber,
                     Comment = model.Comment
                 };
 
