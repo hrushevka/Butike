@@ -1,0 +1,81 @@
+﻿@model EditOrderStatusViewModel
+
+@{
+    ViewData["Title"] = $"Изменение статуса заказа #{Model.OrderNumber}";
+}
+
+<div class="container">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
+            📦 Изменение статуса заказа #@Model.OrderNumber
+        </h1>
+
+        <div class="card">
+            <div class="card-header" style="background: var(--brown-primary); color: white;">
+                <h4 style="margin: 0;">Информация о заказе</h4>
+            </div>
+            <div class="card-body" style="padding: 1.5rem;">
+                <div style="margin-bottom: 1rem;">
+                    <strong>Покупатель:</strong> @Model.CustomerName
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Дата заказа:</strong> @Model.OrderDate.ToString("dd.MM.yyyy HH:mm")
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Сумма заказа:</strong> <span style="color: var(--brown-primary); font-weight: 700;">@Model.TotalAmount.ToString("N0") ₽</span>
+                </div>
+                
+                <hr style="border-color: var(--brown-light); margin: 1rem 0;">
+
+                <form method="post">
+                    <input type="hidden" asp-for="OrderId" />
+
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: var(--brown-dark);">Текущий статус:</label>
+                        <div style="padding: 0.6rem; background: var(--brown-bg-light); border-radius: var(--radius-sm); margin-bottom: 1rem;">
+                            @{
+                                var currentStatusName = Model.Statuses.FirstOrDefault(s => s.IsSelected)?.StatusName ?? "Неизвестно";
+                            }
+                            <strong>@currentStatusName</strong>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.75rem; font-weight: 600; color: var(--brown-dark);">Изменить статус на:</label>
+                        
+                        @for (int i = 0; i < Model.Statuses.Count; i++)
+                        {
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                <input type="hidden" asp-for="@Model.Statuses[i].Status" />
+                                <input type="hidden" asp-for="@Model.Statuses[i].StatusName" />
+                                <input class="status-radio" type="radio" asp-for="@Model.Statuses[i].IsSelected" 
+                                       style="width: 18px; height: 18px; cursor: pointer;" />
+                                <label style="cursor: pointer; color: var(--text-dark);">@Model.Statuses[i].StatusName</label>
+                            </div>
+                        }
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <button type="submit" class="btn btn-primary" style="cursor: pointer;">
+                            💾 Сохранить статус
+                        </button>
+                        <a asp-action="Orders" class="btn btn-outline" style="text-decoration: none; text-align: center;">
+                            ↩️ Назад к заказам
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .status-radio {
+        cursor: pointer;
+        accent-color: var(--brown-primary);
+    }
+    
+    .status-radio:hover {
+        transform: scale(1.05);
+    }
+</style>

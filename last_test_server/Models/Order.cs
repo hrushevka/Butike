@@ -66,4 +66,22 @@ namespace last_test_server.Models
         [Display(Name = "Отменен")]
         Cancelled
     }
+
+    public class EditOrderStatusViewModel
+    {
+        public int OrderId { get; set; }
+        public string OrderNumber { get; set; }
+        public string CustomerName { get; set; }
+        public DateTime OrderDate { get; set; }
+        public decimal TotalAmount { get; set; }
+        public OrderStatus CurrentStatus { get; set; }
+        public List<StatusSelection> Statuses { get; set; } = new();
+    }
+
+    public class StatusSelection
+    {
+        public OrderStatus Status { get; set; }
+        public string StatusName { get; set; }
+        public bool IsSelected { get; set; }
+    }
 }

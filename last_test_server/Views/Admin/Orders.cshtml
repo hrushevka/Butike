@@ -1,0 +1,189 @@
+﻿@model IEnumerable<last_test_server.Models.Order>
+
+@{
+    ViewData["Title"] = "Управление заказами";
+    var orders = Model.ToList();
+}
+
+<div class="container">
+    <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
+        📋 Управление заказами
+    </h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="toast-notify" style="position: static; margin-bottom: 1rem; background: var(--brown-primary);">
+            ✓ @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (!orders.Any())
+    {
+        <div class="empty-state">
+            <div style="font-size: 4rem;">📦</div>
+            <h3 style="margin-top: 1rem;">Нет заказов</h3>
+            <p style="color: var(--text-muted);">Пока нет ни одного заказа от покупателей</p>
+        </div>
+    }
+    else
+    {
+        <div class="card" style="overflow-x: auto;">
+            <div class="card-body" style="padding: 1.5rem;">
+                <table class="orders-table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: var(--brown-primary); color: white;">
+                            <th style="padding: 0.75rem; text-align: left;">№ заказа</th>
+                            <th style="padding: 0.75rem; text-align: left;">Покупатель</th>
+                            <th style="padding: 0.75rem; text-align: left;">Дата</th>
+                            <th style="padding: 0.75rem; text-align: right;">Сумма</th>
+                            <th style="padding: 0.75rem; text-align: center;">Статус</th>
+                            <th style="padding: 0.75rem; text-align: center;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in orders)
+                        {
+                            string statusClass = "";
+                            string statusText = "";
+                            
+                            switch (order.Status)
+                            {
+                                case last_test_server.Models.OrderStatus.Pending:
+                                    statusClass = "status-pending";
+                                    statusText = "⏳ Ожидает";
+                                    break;
+                                case last_test_server.Models.OrderStatus.Confirmed:
+                                    statusClass = "status-confirmed";
+                                    statusText = "✅ Подтвержден";
+                                    break;
+                                case last_test_server.Models.OrderStatus.Shipping:
+                                    statusClass = "status-shipping";
+                                    statusText = "🚚 В доставке";
+                                    break;
+                                case last_test_server.Models.OrderStatus.Delivered:
+                                    statusClass = "status-delivered";
+                                    statusText = "📦 Доставлен";
+                                    break;
+                                case last_test_server.Models.OrderStatus.Cancelled:
+                                    statusClass = "status-cancelled";
+                                    statusText = "❌ Отменен";
+                                    break;
+                            }
+                            
+                            <tr style="border-bottom: 1px solid var(--brown-light);">
+                                <td style="padding: 0.75rem;">#@order.Id</td>
+                                <td style="padding: 0.75rem;">@(order.User != null ? $"{order.User.FirstName} {order.User.LastName}" : order.UserId)</td>
+                                <td style="padding: 0.75rem;">@order.OrderDate.ToString("dd.MM.yyyy")</td>
+                                <td style="padding: 0.75rem; text-align: right;"><strong>@order.TotalAmount.ToString("N0") ₽</strong></td>
+                                <td style="padding: 0.75rem; text-align: center;">
+                                    <span class="@statusClass">@statusText</span>
+                                </td>
+                                <td style="padding: 0.75rem; text-align: center;">
+                                    <a asp-action="EditOrder" asp-route-id="@order.Id" class="btn-edit" style="text-decoration: none;">
+                                        ✏️ Изменить статус
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .orders-table th {
+        background: var(--brown-primary);
+        color: white;
+        padding: 0.75rem;
+        text-align: left;
+    }
+    
+    .orders-table td {
+        padding: 0.75rem;
+        border-bottom: 1px solid var(--brown-light);
+    }
+    
+    .orders-table tr:hover {
+        background: var(--brown-bg-light);
+    }
+    
+    .status-pending {
+        background: #ffc107;
+        color: #333;
+        padding: 0.25rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-block;
+    }
+    
+    .status-confirmed {
+        background: #17a2b8;
+        color: white;
+        padding: 0.25rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-block;
+    }
+    
+    .status-shipping {
+        background: #007bff;
+        color: white;
+        padding: 0.25rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-block;
+    }
+    
+    .status-delivered {
+        background: #28a745;
+        color: white;
+        padding: 0.25rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-block;
+    }
+    
+    .status-cancelled {
+        background: #dc3545;
+        color: white;
+        padding: 0.25rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-block;
+    }
+    
+    .btn-edit {
+        background: var(--brown-primary);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        transition: var(--transition);
+        display: inline-block;
+    }
+    
+    .btn-edit:hover {
+        background: var(--brown-hover);
+        transform: translateY(-1px);
+    }
+    
+    @@media (max-width: 768px) {
+        .orders-table th,
+        .orders-table td {
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+    }
+</style>

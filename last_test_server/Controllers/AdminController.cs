@@ -21,6 +21,7 @@ namespace last_test_server.Controllers
             _context = context;
         }
 
+
         public async Task<IActionResult> Users()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -40,12 +41,6 @@ namespace last_test_server.Controllers
             }
 
             return View(usersWithRoles);
-        }
-
-        public async Task<IActionResult> Orders()
-        {
-            var orders = await _context.Orders.ToListAsync();
-            return View(orders);
         }
 
         [HttpGet]
@@ -95,6 +90,87 @@ namespace last_test_server.Controllers
 
             TempData["SuccessMessage"] = "Роли пользователя обновлены!";
             return RedirectToAction("Users");
+        }
+
+
+        public async Task<IActionResult> Orders()
+        {
+            var orders = await _context.Orders
+                .Include(o => o.User)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+
+            return View(orders);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditOrder(int id)
+        {
+            var order = await _context.Orders
+                .Include(o => o.User)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
+            if (order == null) return NotFound();
+
+            var allStatuses = new List<OrderStatus>
+            {
+                OrderStatus.Pending,
+                OrderStatus.Confirmed,
+                OrderStatus.Shipping,
+                OrderStatus.Delivered,
+                OrderStatus.Cancelled
+            };
+
+            var model = new EditOrderStatusViewModel
+            {
+                OrderId = order.Id,
+                OrderNumber = order.Id.ToString(),
+                CustomerName = order.User != null ? $"{order.User.FirstName} {order.User.LastName}" : order.UserId,
+                OrderDate = order.OrderDate,
+                TotalAmount = order.TotalAmount,
+                CurrentStatus = order.Status,
+                Statuses = allStatuses.Select(s => new StatusSelection
+                {
+                    Status = s,
+                    StatusName = GetStatusName(s),
+                    IsSelected = s == order.Status
+                }).ToList()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditOrder(EditOrderStatusViewModel model)
+        {
+            var order = await _context.Orders.FindAsync(model.OrderId);
+            if (order == null) return NotFound();
+
+            var selectedStatus = model.Statuses
+                .Where(s => s.IsSelected)
+                .Select(s => s.Status)
+                .FirstOrDefault();
+
+            order.Status = selectedStatus;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = $"Статус заказа #{order.Id} обновлен на \"{GetStatusName(selectedStatus)}\"!";
+            return RedirectToAction("Orders");
+        }
+
+        private string GetStatusName(OrderStatus status)
+        {
+            return status switch
+            {
+                OrderStatus.Pending => "Ожидает обработки",
+                OrderStatus.Confirmed => "Подтвержден",
+                OrderStatus.Shipping => "В доставке",
+                OrderStatus.Delivered => "Доставлен",
+                OrderStatus.Cancelled => "Отменен",
+                _ => status.ToString()
+            };
         }
     }
 }
