@@ -9,7 +9,7 @@
 
 <div class="container">
     <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
-        🛒 Моя корзина
+        Моя корзина
     </h1>
 
     @if (TempData["SuccessMessage"] != null)
@@ -22,11 +22,11 @@
     @if (!cartItems.Any())
     {
         <div class="empty-state">
-            <div style="font-size: 4rem;">🛒</div>
+            <div style="font-size: 4rem;"></div>
             <h3 style="margin-top: 1rem;">Ваша корзина пуста</h3>
             <p style="color: var(--text-muted);">Добавьте товары из каталога</p>
             <a href="/" class="btn btn-primary" style="text-decoration: none; display: inline-block; margin-top: 1rem;">
-                🏪 Перейти к покупкам
+                Перейти к покупкам
             </a>
         </div>
     }
@@ -82,10 +82,10 @@
                     </div>
                     <hr style="border-color: var(--brown-light); margin: 1rem 0;">
                     <a asp-action="Checkout" class="btn btn-primary" style="text-decoration: none; display: block; text-align: center; width: 100%; margin-bottom: 0.5rem;">
-                        💳 Оформить заказ
+                        Оформить заказ
                     </a>
                     <button id="clear-cart" class="btn btn-outline" style="width: 100%;">
-                        🗑️ Очистить корзину
+                        Очистить корзину
                     </button>
                 </div>
             </div>

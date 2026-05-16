@@ -9,12 +9,12 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         <div>
             <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 0.5rem;">
-                📦 Мои товары
+                Мои товары
             </h1>
             <p style="color: var(--text-muted);">Управление вашими товарами</p>
         </div>
         <a asp-action="Create" class="btn btn-primary" style="text-decoration: none;">
-            ➕ Добавить товар
+            Добавить товар
         </a>
     </div>
 
@@ -28,7 +28,7 @@
     @if (TempData["ErrorMessage"] != null)
     {
         <div class="toast-notify" style="position: static; margin-bottom: 1rem; background: #dc3545;">
-            ⚠ @TempData["ErrorMessage"]
+            @TempData["ErrorMessage"]
         </div>
     }
 
@@ -39,7 +39,7 @@
             <h3 style="margin-top: 1rem;">У вас пока нет товаров</h3>
             <p style="color: var(--text-muted);">Нажмите кнопку "Добавить товар", чтобы начать продавать</p>
             <a asp-action="Create" class="btn btn-primary" style="text-decoration: none; display: inline-block; margin-top: 1rem;">
-                ➕ Добавить первый товар
+                Добавить первый товар
             </a>
         </div>
     }

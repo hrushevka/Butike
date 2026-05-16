@@ -7,7 +7,7 @@
 <div class="container">
     <div style="max-width: 1000px; margin: 0 auto;">
         <h1 class="section-title" style="font-size: 1.8rem; border-bottom-color: var(--brown-primary); margin-bottom: 1.5rem;">
-            ℹ️ Детальная информация
+            Детальная информация
         </h1>
 
         <div class="card">
@@ -27,7 +27,7 @@
 
                         <hr style="border-color: var(--brown-light); margin: 1rem 0;">
 
-                        <h5>📋 Информация о товаре</h5>
+                        <h5>Информация о товаре</h5>
                         <table style="width: 100%; border-collapse: collapse; margin-top: 0.5rem;">
                             <tr>
                                 <th style="padding: 0.5rem 0; text-align: left; width: 120px;">ID товара:</th>
@@ -46,7 +46,7 @@
                         @if (!string.IsNullOrEmpty(Model.Composition))
                         {
                             <div style="margin-top: 1rem;">
-                                <h5>📝 Состав и характеристики</h5>
+                                <h5>Состав и характеристики</h5>
                                 <div style="background: var(--brown-bg-light); padding: 1rem; border-radius: var(--radius-sm); margin-top: 0.5rem;">
                                     @Html.Raw(Model.Composition.Replace("\n", "<br>"))
                                 </div>
@@ -55,15 +55,15 @@
 
                         <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
                             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn" style="background: #ffc107; color: #333; text-decoration: none; text-align: center; flex: 1;">
-                                ✏️ Редактировать
+                                Редактировать
                             </a>
                             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn" style="background: #dc3545; color: white; text-decoration: none; text-align: center; flex: 1;">
-                                🗑️ Удалить
+                                Удалить
                             </a>
                         </div>
                         <div style="margin-top: 0.5rem;">
                             <a asp-action="Index" class="btn btn-outline" style="text-decoration: none; text-align: center; display: block;">
-                                ↩️ Вернуться к списку
+                                Вернуться к списку
                             </a>
                         </div>
                     </div>

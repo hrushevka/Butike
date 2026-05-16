@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<last_test_server.Models.Product>
 
 <div class="container">
-    <!-- Hero-блок -->
     <div class="hero">
         <h1>Добро пожаловать в магазин</h1>
         <p class="lead">Лучшие товары от лучших продавцов</p>
@@ -40,7 +39,7 @@
     @if (!Model.Any())
     {
         <div class="empty-state">
-            <p style="font-size: 1.2rem;">✨ Товаров пока нет</p>
+            <p style="font-size: 1.2rem;">Товаров пока нет</p>
             <p style="font-size: 0.9rem; margin-top: 0.5rem;">Загляните позже, скоро появятся новинки</p>
         </div>
     }
@@ -59,7 +58,7 @@
                             @if (User.IsInRole("Buyer") && User.Identity.IsAuthenticated)
                             {
                                 <button class="add-to-cart-icon" data-product-id="@product.Id" title="Добавить в корзину">
-                                    🛒
+                                    ➕
                                 </button>
                             }
                         </div>
@@ -70,7 +69,7 @@
                                 @(product.Composition.Length > 100 ? product.Composition.Substring(0, 100) + "..." : product.Composition)
                             </div>
                         }
-                        <div class="seller">👤 Продавец: @(product.Seller?.FullName ?? product.SellerId)</div>
+                        <div class="seller">Продавец: @(product.Seller?.FullName ?? product.SellerId)</div>
                     </div>
 
                     <div class="cart-controls">
@@ -120,11 +119,11 @@
                             showToast('✓ ' + response.message);
                             updateCartCount();
                         } else {
-                            showToast('⚠ ' + response.message);
+                            showToast(' ' + response.message);
                         }
                     },
                     error: function() {
-                        showToast('❌ Ошибка при добавлении в корзину');
+                        showToast('Ошибка при добавлении в корзину');
                     }
                 });
             }

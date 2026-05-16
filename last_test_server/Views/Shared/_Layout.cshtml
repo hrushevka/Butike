@@ -11,7 +11,7 @@
     <nav class="navbar">
         <div class="container">
             <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                🛍️ Butike
+                🍔 Butike
             </a>
 
             <button class="navbar-toggler" id="menuToggle" aria-label="Меню">
@@ -24,14 +24,14 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">
-                            🏠 Главная
+                            Главная
                         </a>
                     </li>
                     @if (User.IsInRole("Seller"))
                     {
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Seller" asp-action="Index">
-                                📦 Мои товары
+                                Мои товары
                             </a>
                         </li>
                     }
@@ -39,13 +39,13 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link cart-link" asp-area="" asp-controller="Cart" asp-action="Index">
-                                🛒 Корзина
+                                Корзина
                                 <span class="cart-count-badge" id="cartCount" style="display: none;">0</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="OrderHistory">
-                                📋 Заказы
+                                Заказы
                             </a>
                         </li>
                     }
@@ -53,7 +53,7 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Admin" asp-action="Users">
-                                👥 Пользователи
+                                Пользователи
                             </a>
                         </li>
                         <li class="nav-item">
@@ -69,22 +69,22 @@
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown">
-                                👤 @User.Identity.Name
+                                @User.Identity.Name
                             </a>
                             <div class="dropdown-menu" id="userDropdownMenu">
                                 <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
-                                    ⚙️ Профиль
+                                    Профиль
                                 </a>
                                 @if (User.IsInRole("Buyer"))
                                 {
                                     <a class="dropdown-item" asp-controller="Cart" asp-action="OrderHistory">
-                                        📋 Мои заказы
+                                        Мои заказы
                                     </a>
                                 }
                                 <hr class="dropdown-divider">
                                 <form method="post" asp-controller="Account" asp-action="Logout">
                                     <button type="submit" class="dropdown-item logout-btn">
-                                        🚪 Выйти
+                                        Выйти
                                     </button>
                                 </form>
                             </div>
@@ -94,12 +94,12 @@
                     {
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Account" asp-action="Login">
-                                🔑 Вход
+                                Вход
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-register" asp-controller="Account" asp-action="Register">
-                                📝 Регистрация
+                                Регистрация
                             </a>
                         </li>
                     }
@@ -113,7 +113,7 @@
             @if (TempData["SuccessMessage"] != null)
             {
                 <div class="toast-notify" style="position: static; margin-bottom: 1rem; background: var(--brown-primary);">
-                    ✓ @TempData["SuccessMessage"]
+                    @TempData["SuccessMessage"]
                 </div>
             }
             @RenderBody()
