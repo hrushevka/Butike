@@ -75,8 +75,12 @@ namespace last_test_server.Models
         public DateTime OrderDate { get; set; }
         public decimal TotalAmount { get; set; }
         public OrderStatus CurrentStatus { get; set; }
+        [Required(ErrorMessage = "Выберите статус заказа")]
+        public OrderStatus SelectedStatus { get; set; }
         public List<StatusSelection> Statuses { get; set; } = new();
     }
+
+
 
     public class StatusSelection
     {

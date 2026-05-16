@@ -144,21 +144,31 @@ namespace last_test_server.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditOrder(EditOrderStatusViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var order = await _context.Orders.FindAsync(model.OrderId);
             if (order == null) return NotFound();
 
-            var selectedStatus = model.Statuses
-                .Where(s => s.IsSelected)
-                .Select(s => s.Status)
-                .FirstOrDefault();
+            order.Status = model.SelectedStatus;
 
-            order.Status = selectedStatus;
+            try
+            {
+                _context.Update(order);
+                await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-
-            TempData["SuccessMessage"] = $"Статус заказа #{order.Id} обновлен на \"{GetStatusName(selectedStatus)}\"!";
-            return RedirectToAction("Orders");
+                TempData["SuccessMessage"] = $"Статус заказа #{order.Id} обновлён на \"{GetStatusName(model.SelectedStatus)}\"";
+                return RedirectToAction("Orders");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Ошибка сохранения: {ex.Message}");
+                return RedirectToAction("Orders");
+            }
         }
+
 
         private string GetStatusName(OrderStatus status)
         {
